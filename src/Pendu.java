@@ -1,10 +1,17 @@
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
+import javafx.application.Platform;
 
 import javafx.geometry.Pos;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.TilePane;
 
 
 import javafx.scene.image.Image;
@@ -15,6 +22,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.control.Alert;
 import javafx.scene.control.*;
+
 import javafx.scene.control.ButtonBar.ButtonData ;
 import javafx.scene.control.ButtonType ;
 import java.util.List;
@@ -92,6 +100,7 @@ public class Pendu extends Application {
 
     private Stage primaryStage;
 
+    private ToggleGroup lesRadiosBtn;
     /**
      * initialise les attributs (créer le modèle, charge les images, crée le chrono ...)
      */
@@ -111,23 +120,11 @@ public class Pendu extends Application {
         this.panelCentral = fenetreAccueil();
 
 
-        this.boutonHome = new Button();
-        this.boutonInfo = new Button();
-        this.boutonParametres = new Button();
-        Image imgInfo = new Image("../img/info.png");
-        ImageView viewInfo = new ImageView(imgInfo);
-        this.boutonInfo.setGraphic(viewInfo);
-
-        Image imgParam = new Image("../img/parametres.png");
-        ImageView viewParam = new ImageView(imgParam);
-        this.boutonParametres.setGraphic(viewParam);
-
-        Image imgHome = new Image("../img/home.png");
-        ImageView viewHome = new ImageView(imgHome);
-        this.boutonHome.setGraphic(viewHome);
+        
 
         
         this.titre = new Text("Jeu du pendu");
+        titre.setFont(Font.font("Arial", FontWeight.BOLD, 32));
         
     }
 
@@ -152,6 +149,30 @@ public class Pendu extends Application {
 
 
         HBox lesBoutons = new HBox();
+        //lesBoutons.getChildren().addAll(this.boutonHome, this.boutonParametres, this.boutonInfo);
+        this.boutonHome = new Button();
+        this.boutonInfo = new Button();
+        this.boutonParametres = new Button();
+
+        Image imgInfo = new Image("../img/info.png");
+        ImageView viewInfo = new ImageView(imgInfo);
+        this.boutonInfo.setGraphic(viewInfo);
+        viewInfo.setFitHeight(25);
+        viewInfo.setFitWidth(25);
+
+
+        Image imgParam = new Image("../img/parametres.png");
+        ImageView viewParam = new ImageView(imgParam);
+        this.boutonParametres.setGraphic(viewParam);
+        viewParam.setFitHeight(25);
+        viewParam.setFitWidth(25);
+
+        Image imgHome = new Image("../img/home.png");
+        ImageView viewHome = new ImageView(imgHome);
+        this.boutonHome.setGraphic(viewHome);
+        viewHome.setFitHeight(25);
+        viewHome.setFitWidth(25);
+        //lesBoutons.getChildren().addAll(new Button("test1"), new Button("test2"));
         lesBoutons.getChildren().addAll(this.boutonHome, this.boutonParametres, this.boutonInfo);
         banniere.setRight(lesBoutons);
 
@@ -183,10 +204,33 @@ public class Pendu extends Application {
     private BorderPane fenetreAccueil(){
         // A implementer    
         BorderPane res = new BorderPane();
-        res.setTop(banniere());
-        //this.bJouer = new Button("Lancer une partie");
-        res.setCenter(bJouer);
+        
+        VBox pageCentre = new VBox();
+        this.bJouer = new Button("Lancer une partie");
+        pageCentre.getChildren().add(bJouer);
 
+        RadioButton facile = new RadioButton("Facile");
+        RadioButton medium = new RadioButton("Médium");
+        RadioButton difficile = new RadioButton("Difficile");
+        RadioButton expert = new RadioButton("Expert");
+        this.lesRadiosBtn = new ToggleGroup();
+
+        facile.setToggleGroup(lesRadiosBtn);
+        medium.setToggleGroup(lesRadiosBtn);
+        difficile.setToggleGroup(lesRadiosBtn);
+        expert.setToggleGroup(lesRadiosBtn);
+
+        VBox VBoxBouton = new VBox();
+        VBoxBouton.getChildren().addAll(facile, medium, difficile, expert);
+
+        TitledPane TitledDifficulte = new TitledPane();
+        TitledDifficulte.setText("Niveau de difficultés");
+        TitledDifficulte.setContent(VBoxBouton);;
+        pageCentre.getChildren().add(TitledDifficulte);
+
+        
+        res.setTop(banniere());
+        res.setCenter(pageCentre);
         return res;
     }
 
@@ -212,7 +256,7 @@ public class Pendu extends Application {
     }
     
     public void modeParametres(){
-        // A implémenter
+        
     }
 
     /** lance une partie */
