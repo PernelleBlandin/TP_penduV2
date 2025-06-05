@@ -103,7 +103,7 @@ public class Pendu extends Application {
         this.chargerImages("./img");
 
         this.niveaux = new ArrayList<>();
-        this.dessin = new ImageView();
+        this.dessin = new ImageView("../img/pendu0.png");
         this.motCrypte = new Text();
         this.pg = new ProgressBar();
         this.clavier = new Clavier("ABCDEFGHIJKLMNOPQRSTUVWXYZ/", new ControleurLettres(this.modelePendu, this), 7);
@@ -239,7 +239,17 @@ public class Pendu extends Application {
         RetourAccueil versAccueil = new RetourAccueil(modelePendu, this);
         boutonHome.setOnAction(versAccueil);
 
+        VBox jeuPrincp = new VBox();
+
+        //this.dessin = 
+        this.motCrypte = new Text(modelePendu.getMotCrypte());
+        jeuPrincp.getChildren().addAll(this.motCrypte, this.dessin);
+
+        VBox aside = new VBox();
+
         res.setTop(banniere());
+        res.setCenter(jeuPrincp);
+        res.setCenter(aside);
         return res;
     }
 
@@ -262,8 +272,9 @@ public class Pendu extends Application {
     }
     
     public void modeJeu(){
-        this.panelCentral = fenetreJeu();
-        this.root.setCenter(this.panelCentral);
+        this.panelCentral.setCenter(fenetreJeu());
+        //this.panelCentral = fenetreJeu();
+        //this.root.setCenter(this.panelCentral);
     }
     
     public void modeParametres(){

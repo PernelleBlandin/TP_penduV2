@@ -44,7 +44,7 @@ public class ControleurLancerPartie implements EventHandler<ActionEvent> {
                 this.modelePendu.setMotATrouver();
                 this.vuePendu.modeJeu();
             }
-            else{
+            else{ 
                 System.out.println("D'ac !");
             }
         }
