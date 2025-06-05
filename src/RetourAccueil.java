@@ -32,20 +32,21 @@ public class RetourAccueil implements EventHandler<ActionEvent> {
      */
     @Override
     public void handle(ActionEvent actionEvent) {
-        if(this.vuePendu.getChrono().getText()!="0") {
+        if(this.modelePendu.gagne() || this.modelePendu.perdu()) {
+            this.vuePendu.modeAccueil();
+        }
+        else{
             Optional<ButtonType> rep = this.vuePendu.popUpPartieEnCours().showAndWait();
-
             if(rep.isPresent() && rep.get().equals(ButtonType.YES)) {
                 System.out.println("Direction l'accueil");
-                this.vuePendu.getChrono().resetTime();;
                 this.vuePendu.modeAccueil();
             }
-
-            else {
-                System.out.println("On continue");
+            
+            else{
+                System.out.println("On reprend la partie");
             }
         }
-        this.vuePendu.modeAccueil();
-        this.modelePendu.setMotATrouver();
+            
+
     }
 }

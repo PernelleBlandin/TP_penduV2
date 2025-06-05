@@ -88,8 +88,8 @@ public class MotMystere {
      * @param nbErreursMax  le nombre total d'essais autorisés
      */
     private void initMotMystere(String motATrouver, int niveau, int nbErreursMax){
-        this.niveau =niveau;
-        this.nbEssais=0;
+        this.niveau = niveau;
+        this.nbEssais = 0;
         this.motATrouver = Dictionnaire.sansAccents(motATrouver).toUpperCase();
         this.motCrypte = "";
         this.lettresEssayees = new HashSet<>();

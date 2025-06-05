@@ -31,23 +31,22 @@ public class ControleurLancerPartie implements EventHandler<ActionEvent> {
      */
     @Override
     public void handle(ActionEvent actionEvent) {
-        //if (this.modelePendu.getNbErreursMax()==this.modelePendu.getNbErreursRestants()){
-        //this.vuePendu.lancePartie();
+        if (this.modelePendu.getNbErreursMax()==this.modelePendu.getNbErreursRestants()){
+        this.vuePendu.lancePartie();
         
-       //} 
-        //else{ 
-        //    Optional<ButtonType> reponse = this.vuePendu.popUpPartieEnCours().showAndWait(); // on lance la fenêtre popup et on attends la réponse
-    
-        Optional<ButtonType> reponse = this.vuePendu.popUpPartieEnCours().showAndWait(); // on lance la fenêtre popup et on attends la réponse
+       } 
+        else{ 
+            Optional<ButtonType> reponse = this.vuePendu.popUpPartieEnCours().showAndWait(); // on lance la fenêtre popup et on attends la réponse
         // si la réponse est oui
-        if (reponse.isPresent() && reponse.get().equals(ButtonType.YES)){
-            System.out.println("Ok !");
-            //this.vuePendu.getChrono().resetTime();
-            //this.modelePendu.setMotATrouver();
-            //this.vuePendu.modeJeu();
-        }
-        else{
-            System.out.println("D'acc !");
+            if (reponse.isPresent() && reponse.get().equals(ButtonType.YES)){
+                System.out.println("Ok !");
+                this.vuePendu.getChrono().resetTime();
+                this.modelePendu.setMotATrouver();
+                this.vuePendu.modeJeu();
+            }
+            else{
+                System.out.println("D'ac !");
+            }
         }
     }
 }

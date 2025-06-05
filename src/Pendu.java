@@ -7,24 +7,16 @@ import javafx.scene.Scene;
 import javafx.application.Platform;
 
 import javafx.geometry.Pos;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.TilePane;
-
-
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-import javafx.scene.control.Alert;
 import javafx.scene.control.*;
 
 import javafx.scene.control.ButtonBar.ButtonData ;
-import javafx.scene.control.ButtonType ;
+
 import java.util.List;
 import java.util.Arrays;
 import java.io.File;
@@ -117,14 +109,32 @@ public class Pendu extends Application {
         this.clavier = new Clavier("ABCDEFGHIJKLMNOPQRSTUVWXYZ/", new ControleurLettres(this.modelePendu, this), 7);
         this.leNiveau = new Text();
         this.chrono = new Chronometre();
-        this.panelCentral = fenetreAccueil();
 
-
+        this.boutonHome = new Button();
+        this.boutonInfo = new Button();
+        this.boutonParametres = new Button();
         
+        Image imgInfo = new Image("../img/info.png");
+        ImageView viewInfo = new ImageView(imgInfo);
+        this.boutonInfo.setGraphic(viewInfo);
+        viewInfo.setFitHeight(25);
+        viewInfo.setFitWidth(25);
 
+
+        Image imgParam = new Image("../img/parametres.png");
+        ImageView viewParam = new ImageView(imgParam);
+        this.boutonParametres.setGraphic(viewParam);
+        viewParam.setFitHeight(25);
+        viewParam.setFitWidth(25);
+
+        Image imgHome = new Image("../img/home.png");
+        ImageView viewHome = new ImageView(imgHome);
+        this.boutonHome.setGraphic(viewHome);
+        viewHome.setFitHeight(25);
+        viewHome.setFitWidth(25);
         
         this.titre = new Text("Jeu du pendu");
-        titre.setFont(Font.font("Arial", FontWeight.BOLD, 32));
+        this.titre.setFont(Font.font("Arial", FontWeight.BOLD, 32));
         
     }
 
@@ -144,37 +154,16 @@ public class Pendu extends Application {
     private BorderPane banniere(){
         // A implementer          
         BorderPane banniere = new BorderPane();
-        //titre.setFont(Font.font("Arial", FontWeight.BOLD, 32));
         banniere.setLeft(this.titre);
 
-
         HBox lesBoutons = new HBox();
-        //lesBoutons.getChildren().addAll(this.boutonHome, this.boutonParametres, this.boutonInfo);
-        this.boutonHome = new Button();
-        this.boutonInfo = new Button();
-        this.boutonParametres = new Button();
-
-        Image imgInfo = new Image("../img/info.png");
-        ImageView viewInfo = new ImageView(imgInfo);
-        this.boutonInfo.setGraphic(viewInfo);
-        viewInfo.setFitHeight(25);
-        viewInfo.setFitWidth(25);
-
-
-        Image imgParam = new Image("../img/parametres.png");
-        ImageView viewParam = new ImageView(imgParam);
-        this.boutonParametres.setGraphic(viewParam);
-        viewParam.setFitHeight(25);
-        viewParam.setFitWidth(25);
-
-        Image imgHome = new Image("../img/home.png");
-        ImageView viewHome = new ImageView(imgHome);
-        this.boutonHome.setGraphic(viewHome);
-        viewHome.setFitHeight(25);
-        viewHome.setFitWidth(25);
-        //lesBoutons.getChildren().addAll(new Button("test1"), new Button("test2"));
         lesBoutons.getChildren().addAll(this.boutonHome, this.boutonParametres, this.boutonInfo);
         banniere.setRight(lesBoutons);
+
+        BackgroundFill backgroundFill = new BackgroundFill(Color.LIGHTGOLDENRODYELLOW, null, null);
+        Background background = new Background(backgroundFill);
+        banniere.setBackground(background);
+        banniere.setPadding(new Insets(0, 10, 30, 10));
 
         return banniere;
     }
@@ -188,16 +177,7 @@ public class Pendu extends Application {
         // return res;
     // }
 
-    // /**
-     // * @return la fenêtre de jeu avec le mot crypté, l'image, la barre
-     // *         de progression et le clavier
-     // */
-    // private Pane fenetreJeu(){
-        // A implementer
-        // Pane res = new Pane();
-        // return res;
-    // }
-
+    
     // /**
      // * @return la fenêtre d'accueil sur laquelle on peut choisir les paramètres de jeu
      // */
@@ -205,7 +185,7 @@ public class Pendu extends Application {
         // A implementer    
         BorderPane res = new BorderPane();
         
-        VBox pageCentre = new VBox();
+        VBox pageCentre = new VBox(15);
         this.bJouer = new Button("Lancer une partie");
         pageCentre.getChildren().add(bJouer);
 
@@ -220,19 +200,49 @@ public class Pendu extends Application {
         difficile.setToggleGroup(lesRadiosBtn);
         expert.setToggleGroup(lesRadiosBtn);
 
-        VBox VBoxBouton = new VBox();
-        VBoxBouton.getChildren().addAll(facile, medium, difficile, expert);
+        VBox vBoxBouton = new VBox(10);
+        vBoxBouton.getChildren().addAll(facile, medium, difficile, expert);
 
-        TitledPane TitledDifficulte = new TitledPane();
-        TitledDifficulte.setText("Niveau de difficultés");
-        TitledDifficulte.setContent(VBoxBouton);;
-        pageCentre.getChildren().add(TitledDifficulte);
+        TitledPane titledDifficulte = new TitledPane();
+        titledDifficulte.setText("Niveau de difficultés");
+        titledDifficulte.setCollapsible(false);
+        titledDifficulte.setContent(vBoxBouton);
+        pageCentre.setPadding(new Insets(30,50,0,50));
+        pageCentre.getChildren().add(titledDifficulte);
 
+        boutonHome.setDisable(true);
+        boutonParametres.setDisable(false);
         
         res.setTop(banniere());
         res.setCenter(pageCentre);
+
+        ControleurInfos infos = new ControleurInfos(this);
+        this.boutonInfo.setOnAction(infos);
+
+        ControleurLancerPartie nouvellePartie = new ControleurLancerPartie(modelePendu, this);
+        this.bJouer.setOnAction(nouvellePartie);
+
         return res;
     }
+
+
+    // /**
+     // * @return la fenêtre de jeu avec le mot crypté, l'image, la barre
+     // *         de progression et le clavier
+     // */
+    private BorderPane fenetreJeu(){
+        // A implementer
+        BorderPane res = new BorderPane();
+        boutonHome.setDisable(false);
+        boutonParametres.setDisable(true);
+
+        RetourAccueil versAccueil = new RetourAccueil(modelePendu, this);
+        boutonHome.setOnAction(versAccueil);
+
+        res.setTop(banniere());
+        return res;
+    }
+
 
     /**
      * charge les images à afficher en fonction des erreurs
@@ -252,7 +262,8 @@ public class Pendu extends Application {
     }
     
     public void modeJeu(){
-        // A implementer
+        this.panelCentral = fenetreJeu();
+        this.root.setCenter(this.panelCentral);
     }
     
     public void modeParametres(){
@@ -261,7 +272,8 @@ public class Pendu extends Application {
 
     /** lance une partie */
     public void lancePartie(){
-        // A implementer
+        this.modeJeu();
+        this.majAffichage();
     }
 
     /**
@@ -282,15 +294,15 @@ public class Pendu extends Application {
 
     public Alert popUpPartieEnCours(){
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"La partie est en cours!\n Etes-vous sûr de l'interrompre ?", ButtonType.YES, ButtonType.NO);
-    //     alert.setTitle("Attention");
+        alert.setTitle("Attention");
         return alert;
      }
         
     public Alert popUpReglesDuJeu(){
          Alert alert = new Alert(Alert.AlertType.INFORMATION);
-    //     alert.setTitle("Alerte de type information");
-    //     alert.setHeaderText("Règles du jeu");
-    //     alert.SetContentText("1-choisir un niveau\n2-choisir une lettre\n3-Si le mot ne contient pas la lettre, un trait est ajouté au dessin\n4-Quand le dessin est fini, vous avez perdu !");
+         alert.setTitle("Alerte de type information");
+         alert.setHeaderText("Règles du jeu");
+         alert.setContentText("1-choisir un niveau\n2-choisir une lettre\n3-Si le mot ne contient pas la lettre, un trait est ajouté au dessin\n4-Quand le dessin est fini, vous avez perdu !");
          return alert;
      }
     
@@ -299,7 +311,7 @@ public class Pendu extends Application {
          Alert alert = new Alert(Alert.AlertType.INFORMATION);
     //     alert.setTitle("Alerte de type information");
     //     alert.setHeaderText("Victoire");
-    //     alert.SetContentText("Bravo, vous avez gagné la partie !!!");   
+    //     alert.setContentText("Bravo, vous avez gagné la partie !!!");   
          return alert;
      }
     
@@ -308,7 +320,7 @@ public class Pendu extends Application {
          Alert alert = new Alert(Alert.AlertType.INFORMATION);
     //     alert.setTitle("Alerte de type information");
     //     alert.setHeaderText("Perdu...");
-    //     alert.SetContentText("Le jeu vous a vaincu."); 
+    //     alert.setContentText("Le jeu vous a vaincu."); 
          return alert;
      }
 
