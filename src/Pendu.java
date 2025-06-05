@@ -297,6 +297,10 @@ public class Pendu extends Application {
         this.motCrypte.setText(this.modelePendu.getMotCrypte());
         }
 
+        if(this.lesImages != null) {
+            this.dessin.setImage(lesImages.get(10 - modelePendu.getNbErreursRestants()));
+        }
+
     }
 
     /**
