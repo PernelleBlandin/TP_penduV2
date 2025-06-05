@@ -311,6 +311,7 @@ public class Pendu extends Application {
     public Alert popUpPartieEnCours(){
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"La partie est en cours!\n Etes-vous sûr de l'interrompre ?", ButtonType.YES, ButtonType.NO);
         alert.setTitle("Attention");
+        alert.showAndWait();
         return alert;
      }
         
@@ -319,24 +320,27 @@ public class Pendu extends Application {
          alert.setTitle("Alerte de type information");
          alert.setHeaderText("Règles du jeu");
          alert.setContentText("1-choisir un niveau\n2-choisir une lettre\n3-Si le mot ne contient pas la lettre, un trait est ajouté au dessin\n4-Quand le dessin est fini, vous avez perdu !");
+         alert.showAndWait();
          return alert;
      }
     
      public Alert popUpMessageGagne(){
     //     // A implementer
-         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-    //     alert.setTitle("Alerte de type information");
-    //     alert.setHeaderText("Victoire");
-    //     alert.setContentText("Bravo, vous avez gagné la partie !!!");   
-         return alert;
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Alerte de type information");
+        alert.setHeaderText("Victoire");
+        alert.setContentText("Bravo, vous avez gagné la partie !!!");  
+        alert.showAndWait();
+        return alert;
      }
     
      public Alert popUpMessagePerdu(){
     //     // A implementer    
          Alert alert = new Alert(Alert.AlertType.INFORMATION);
-    //     alert.setTitle("Alerte de type information");
-    //     alert.setHeaderText("Perdu...");
-    //     alert.setContentText("Le jeu vous a vaincu."); 
+         alert.setTitle("Alerte de type information");
+         alert.setHeaderText("Perdu...");
+         alert.setContentText("Le jeu vous a vaincu."); 
+         alert.showAndWait();
          return alert;
      }
 

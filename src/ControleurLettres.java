@@ -35,12 +35,17 @@ public class ControleurLettres implements EventHandler<ActionEvent> {
     public void handle(ActionEvent actionEvent) {
         Button bouton = (Button) actionEvent.getSource();
         String lettre = bouton.getText();
-        modelePendu.essaiLettre(lettre.charAt(0));
+        this.modelePendu.essaiLettre(lettre.charAt(0));
 
-        vuePendu.majAffichage();
+        this.vuePendu.majAffichage();
         bouton.setDisable(true);
 
-        if()
+        if(this.modelePendu.gagne()){
+            this.vuePendu.popUpMessageGagne();
+        }
+        else if(this.modelePendu.perdu()) {
+            this.vuePendu.popUpMessagePerdu();
+        }
 
 
     }
