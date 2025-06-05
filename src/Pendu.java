@@ -219,6 +219,12 @@ public class Pendu extends Application {
 
         ControleurLancerPartie nouvellePartie = new ControleurLancerPartie(modelePendu, this);
         this.bJouer.setOnAction(nouvellePartie);
+
+        ControleurNiveau choixNiv = new ControleurNiveau(modelePendu);
+        facile.setOnAction(choixNiv);
+        medium.setOnAction(choixNiv);
+        difficile.setOnAction(choixNiv);
+        expert.setOnAction(choixNiv);
    
         return res;
     }
