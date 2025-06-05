@@ -33,6 +33,15 @@ public class ControleurLettres implements EventHandler<ActionEvent> {
      */
     @Override
     public void handle(ActionEvent actionEvent) {
-        // A implémenter
+        Button bouton = (Button) actionEvent.getSource();
+        String lettre = bouton.getText();
+        modelePendu.essaiLettre(lettre.charAt(0));
+
+        vuePendu.majAffichage();
+        bouton.setDisable(true);
+
+        if()
+
+
     }
 }

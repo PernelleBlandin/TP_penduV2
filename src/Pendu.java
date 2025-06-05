@@ -88,10 +88,6 @@ public class Pendu extends Application {
 
     private Text titre;
 
-    private BorderPane root;
-
-    private Stage primaryStage;
-
     private ToggleGroup lesRadiosBtn;
     /**
      * initialise les attributs (créer le modèle, charge les images, crée le chrono ...)
@@ -106,9 +102,11 @@ public class Pendu extends Application {
         this.dessin = new ImageView("../img/pendu0.png");
         this.motCrypte = new Text();
         this.pg = new ProgressBar();
-        this.clavier = new Clavier("ABCDEFGHIJKLMNOPQRSTUVWXYZ/", new ControleurLettres(this.modelePendu, this), 7);
+        this.clavier = new Clavier("ABCDEFGHIJKLMNOPQRSTUVWXYZ-", new ControleurLettres(this.modelePendu, this), 8);
         this.leNiveau = new Text();
         this.chrono = new Chronometre();
+        this.panelCentral = new BorderPane();
+        
 
         this.boutonHome = new Button();
         this.boutonInfo = new Button();
@@ -135,18 +133,19 @@ public class Pendu extends Application {
         
         this.titre = new Text("Jeu du pendu");
         this.titre.setFont(Font.font("Arial", FontWeight.BOLD, 32));
+        this.modeAccueil();
         
     }
 
     /**
      * @return  le graphe de scène de la vue à partir de methodes précédantes
      */
-    // private Scene laScene(){
-    //     BorderPane fenetre = new BorderPane();
-    //     fenetre.setTop(this.banniere());
-    //     fenetre.setCenter(this.panelCentral);
-    //     return new Scene(fenetre, 800, 1000);
-    // }
+    private Scene laScene(){
+        BorderPane fenetre = new BorderPane();
+        fenetre.setTop(this.banniere());
+        fenetre.setCenter(this.panelCentral);
+        return new Scene(fenetre, 800, 1000);
+    }
 
     /**
      * @return le panel contenant le titre du jeu
@@ -213,7 +212,6 @@ public class Pendu extends Application {
         boutonHome.setDisable(true);
         boutonParametres.setDisable(false);
         
-        res.setTop(banniere());
         res.setCenter(pageCentre);
 
         ControleurInfos infos = new ControleurInfos(this);
@@ -221,7 +219,7 @@ public class Pendu extends Application {
 
         ControleurLancerPartie nouvellePartie = new ControleurLancerPartie(modelePendu, this);
         this.bJouer.setOnAction(nouvellePartie);
-
+   
         return res;
     }
 
@@ -241,15 +239,15 @@ public class Pendu extends Application {
 
         VBox jeuPrincp = new VBox();
 
-        //this.dessin = 
+        
         this.motCrypte = new Text(modelePendu.getMotCrypte());
-        jeuPrincp.getChildren().addAll(this.motCrypte, this.dessin);
+        jeuPrincp.getChildren().addAll(this.motCrypte, this.dessin, this.pg, this.clavier);
+
 
         VBox aside = new VBox();
 
-        res.setTop(banniere());
         res.setCenter(jeuPrincp);
-        res.setCenter(aside);
+        res.setRight(aside);
         return res;
     }
 
@@ -267,8 +265,9 @@ public class Pendu extends Application {
     }
 
     public void modeAccueil(){
-        this.panelCentral = fenetreAccueil();
-        this.root.setCenter(this.panelCentral);
+        this.panelCentral.setCenter(fenetreAccueil());
+        // this.panelCentral = fenetreAccueil();
+        // this.root.setCenter(this.panelCentral);
     }
     
     public void modeJeu(){
@@ -292,6 +291,12 @@ public class Pendu extends Application {
      */
     public void majAffichage(){
         // A implementer
+        this.pg.setProgress(1.0 - ((double) modelePendu.getNbErreursRestants()/modelePendu.getNbErreursMax()));
+
+        if(!(this.motCrypte == null)){
+        this.motCrypte.setText(this.modelePendu.getMotCrypte());
+        }
+
     }
 
     /**
@@ -342,15 +347,9 @@ public class Pendu extends Application {
      */
     @Override
     public void start(Stage stage) {
-        this.root = new BorderPane();
         stage.setTitle("IUTEAM'S - La plateforme de jeux de l'IUTO");
-        this.primaryStage = stage;
-        this.root.setTop(banniere());
-        this.panelCentral = fenetreAccueil();
-        this.root.setCenter(this.panelCentral);
-
-        Scene scene = new Scene(this.root, 800, 1000);
-        stage.setScene(scene);
+        stage.setScene(this.laScene());
+        this.modeAccueil();
         stage.show();
     }
 

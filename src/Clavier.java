@@ -22,26 +22,24 @@ public class Clavier extends TilePane{
 
     /**
      * constructeur du clavier
-     * @param touches une chaine de caractères qui contient les lettres à mettre sur les touches
+     * @param lesLettres une chaine de caractères qui contient les lettres à mettre sur les touches
      * @param actionTouches le contrôleur des touches
      * @param tailleLigne nombre de touches par ligne
      */
-    public Clavier(String touches, EventHandler<ActionEvent> actionTouches, int tailleLigne) {
-        // this.touches = touches;
-        // this.actionTouches = actionTouches;
-        // this.tailleLigne = tailleLigne;
-        // TilePane conteneurClavier = new TilePane();
-        // conteneurClavier.setPadding(new Insets(..........));
-        //PrefColumns(tailleLinge)
-        this.clavier = new ArrayList<>();
+    public Clavier(String lesLettres, EventHandler<ActionEvent> actionTouches, int tailleLigne) {
 
-        for(int i=0; i<touches.length(); i++) {
-            Button boutonLettre = new Button(Character.toString(touches.charAt(i)));
+        this.clavier = new ArrayList<>();
+        setVgap(5);
+        setHgap(5);
+        setPadding(new Insets(10));
+        setAlignment(Pos.CENTER);
+        setPrefColumns(tailleLigne);
+
+        for(int i=0; i<lesLettres.length(); i++) {
+            Button boutonLettre = new Button(Character.toString(lesLettres.charAt(i)));
             boutonLettre.setOnAction(actionTouches);
             this.clavier.add(boutonLettre);
-            this.getChildren().add(boutonLettre);
-            TilePane.setMargin(boutonLettre, new Insets(2,2,2,2));
-            
+            this.getChildren().add(boutonLettre);      
             
         }
     }
