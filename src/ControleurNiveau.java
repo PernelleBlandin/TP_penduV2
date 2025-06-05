@@ -29,6 +29,20 @@ public class ControleurNiveau implements EventHandler<ActionEvent> {
         // A implémenter
         RadioButton radiobouton = (RadioButton) actionEvent.getTarget();
         String nomDuRadiobouton = radiobouton.getText();
+        
+        if(nomDuRadiobouton.equals("Facile")) {
+            this.modelePendu.setNiveau(0);
+        }
+        else if(nomDuRadiobouton.equals("Médium")) {
+            this.modelePendu.setNiveau(1);
+        }
+        else if(nomDuRadiobouton.equals("Difficile")) {
+            this.modelePendu.setNiveau(2);
+        }
+        else if(nomDuRadiobouton.equals("expert")) {
+            this.modelePendu.setNiveau(3);
+        }
+
         System.out.println(nomDuRadiobouton);
-    }
+    } 
 }
