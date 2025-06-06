@@ -206,7 +206,7 @@ public class Pendu extends Application {
         vBoxBouton.getChildren().addAll(facile, medium, difficile, expert);
 
         TitledPane titledDifficulte = new TitledPane();
-        titledDifficulte.setText("Niveau de difficultés");
+        titledDifficulte.setText("Niveau de difficulté");
         titledDifficulte.setCollapsible(false);
         titledDifficulte.setContent(vBoxBouton);
         pageCentre.setPadding(new Insets(30,50,0,50));
@@ -247,12 +247,13 @@ public class Pendu extends Application {
         this.boutonHome.setOnAction(versAccueil);
 
         VBox jeuPrincp = new VBox();
-        jeuPrincp.setPadding(new Insets(30,50,0,50));
+        //jeuPrincp.setPadding(new Insets(30,50,0,50));
         
         this.motCrypte = new Text(modelePendu.getMotCrypte());
         jeuPrincp.getChildren().addAll(this.motCrypte, this.dessin, this.pg, this.clavier);
-        jeuPrincp.setSpacing(10);
+        //jeuPrincp.setSpacing(10);
         jeuPrincp.setAlignment(Pos.CENTER);
+        this.clavier.setPrefColumns(8);
 
         //A enlever apres les essais
         BackgroundFill backgroundFill = new BackgroundFill(Color.LIGHTGREEN, null, null);

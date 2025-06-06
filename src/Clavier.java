@@ -29,11 +29,11 @@ public class Clavier extends TilePane{
     public Clavier(String lesLettres, EventHandler<ActionEvent> actionTouches, int tailleLigne) {
 
         this.clavier = new ArrayList<>();
-        setVgap(5);
-        setHgap(5);
-        setPadding(new Insets(10));
-        setAlignment(Pos.CENTER);
-        setPrefColumns(tailleLigne);
+        this.setVgap(5);
+        this.setHgap(5);
+        this.setPadding(new Insets(10));
+        this.setAlignment(Pos.CENTER);
+        this.setPrefColumns(tailleLigne);
 
         for(int i=0; i<lesLettres.length(); i++) {
             Button boutonLettre = new Button(Character.toString(lesLettres.charAt(i)));
