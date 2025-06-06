@@ -86,6 +86,8 @@ public class Pendu extends Application {
      */ 
     private Button bJouer;
 
+    private Button boutonNouvMot;
+
     private Text titre;
 
     private ToggleGroup lesRadiosBtn;
@@ -111,6 +113,7 @@ public class Pendu extends Application {
         this.boutonHome = new Button();
         this.boutonInfo = new Button();
         this.boutonParametres = new Button();
+        this.boutonNouvMot = new Button("Nouveau mot");
         
         Image imgInfo = new Image("../img/info.png");
         ImageView viewInfo = new ImageView(imgInfo);
@@ -244,13 +247,40 @@ public class Pendu extends Application {
         boutonHome.setOnAction(versAccueil);
 
         VBox jeuPrincp = new VBox();
-
+        jeuPrincp.setPadding(new Insets(30,50,0,50));
         
         this.motCrypte = new Text(modelePendu.getMotCrypte());
         jeuPrincp.getChildren().addAll(this.motCrypte, this.dessin, this.pg, this.clavier);
+        jeuPrincp.setSpacing(10);
+        jeuPrincp.setAlignment(Pos.CENTER);
+
+        //A enlever apres les essais
+        BackgroundFill backgroundFill = new BackgroundFill(Color.LIGHTGREEN, null, null);
+        Background background = new Background(backgroundFill);
+        jeuPrincp.setBackground(background);
 
 
-        VBox aside = new VBox();
+        VBox aside = new VBox(20);
+        aside.setPadding(new Insets(30,50,0,50));
+        jeuPrincp.setSpacing(10);
+
+        if(this.modelePendu.getNiveau() == 0) {
+            this.leNiveau.setText("Niveau Facile");
+        }
+        else if(this.modelePendu.getNiveau() == 1) {
+            this.leNiveau.setText("Niveau Médium");
+        }
+        else if(this.modelePendu.getNiveau() == 2) {
+            this.leNiveau.setText("Niveau Difficile");
+        }
+        else if(this.modelePendu.getNiveau() == 1) {
+            this.leNiveau.setText("Niveau Expert");
+        }
+
+        ControleurLancerPartie nouveauMot = new ControleurLancerPartie(modelePendu, this);
+        boutonNouvMot.setOnAction(nouveauMot);
+
+        aside.getChildren().addAll(this.leNiveau, this.boutonNouvMot);
 
         res.setCenter(jeuPrincp);
         res.setRight(aside);
@@ -319,7 +349,7 @@ public class Pendu extends Application {
     }
 
     public Alert popUpPartieEnCours(){
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"La partie est en cours!\n Etes-vous sûr de l'interrompre ?", ButtonType.YES, ButtonType.NO);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"La partie est en cours!\n On l'arrête tout de même ?", ButtonType.YES, ButtonType.NO);
         alert.setTitle("Attention");
         alert.showAndWait();
         return alert;
