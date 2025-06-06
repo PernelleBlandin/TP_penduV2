@@ -245,6 +245,11 @@ public class MotMystere {
         return nbNouvelles;
     }
 
+        public void relancerPartie(){
+            String nouveauMot = this.dict.choisirMot();
+            this.initMotMystere(nouveauMot, this.niveau, this.nbEerreursMax);
+}
+
     /**
      * @return une chaine de caractère donnant l'état du jeu
      */

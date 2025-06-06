@@ -316,6 +316,7 @@ public class Pendu extends Application {
     public void lancePartie(){
         this.modeJeu();
         this.majAffichage();
+        this.modelePendu.relancerPartie();
     }
 
 
