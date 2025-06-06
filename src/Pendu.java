@@ -240,11 +240,11 @@ public class Pendu extends Application {
     private BorderPane fenetreJeu(){
         // A implementer
         BorderPane res = new BorderPane();
-        boutonHome.setDisable(false);
-        boutonParametres.setDisable(true);
+        this.boutonHome.setDisable(false);
+        this.boutonParametres.setDisable(true);
 
         RetourAccueil versAccueil = new RetourAccueil(modelePendu, this);
-        boutonHome.setOnAction(versAccueil);
+        this.boutonHome.setOnAction(versAccueil);
 
         VBox jeuPrincp = new VBox();
         jeuPrincp.setPadding(new Insets(30,50,0,50));
@@ -278,7 +278,7 @@ public class Pendu extends Application {
         }
 
         ControleurLancerPartie nouveauMot = new ControleurLancerPartie(modelePendu, this);
-        boutonNouvMot.setOnAction(nouveauMot);
+        this.boutonNouvMot.setOnAction(nouveauMot);
 
         aside.getChildren().addAll(this.leNiveau, this.boutonNouvMot);
 
@@ -302,14 +302,10 @@ public class Pendu extends Application {
 
     public void modeAccueil(){
         this.panelCentral.setCenter(fenetreAccueil());
-        // this.panelCentral = fenetreAccueil();
-        // this.root.setCenter(this.panelCentral);
     }
     
     public void modeJeu(){
         this.panelCentral.setCenter(fenetreJeu());
-        //this.panelCentral = fenetreJeu();
-        //this.root.setCenter(this.panelCentral);
     }
     
     public void modeParametres(){
@@ -321,6 +317,7 @@ public class Pendu extends Application {
         this.modeJeu();
         this.majAffichage();
     }
+
 
     /**
      * raffraichit l'affichage selon les données du modèle

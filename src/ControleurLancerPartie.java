@@ -31,17 +31,17 @@ public class ControleurLancerPartie implements EventHandler<ActionEvent> {
      */
     @Override
     public void handle(ActionEvent actionEvent) {
-        if (this.modelePendu.getNbErreursMax()==this.modelePendu.getNbErreursRestants()){
+        if (this.modelePendu.gagne() || this.modelePendu.perdu() || this.modelePendu.getNbErreursMax()==this.modelePendu.getNbErreursRestants()){
         this.vuePendu.lancePartie();
         
        } 
         else{ 
             Optional<ButtonType> reponse = this.vuePendu.popUpPartieEnCours().showAndWait(); // on lance la fenêtre popup et on attends la réponse
         // si la réponse est oui
-            if (reponse.isPresent() && reponse.get().equals(ButtonType.YES)){
-                System.out.println("On recommence une partie");
+            if (reponse.isPresent() && reponse.get().equals(ButtonType.YES)){ 
                 //this.vuePendu.getChrono().resetTime();
                 this.vuePendu.lancePartie();
+                System.out.println("On recommence une partie");
             }
             else{ 
                 System.out.println("On reprend la partie.");
