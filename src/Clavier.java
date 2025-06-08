@@ -45,7 +45,10 @@ public class Clavier extends TilePane{
         }
     }
 
-        public List<Button> getClavier() {
+    /*
+     * getteur du clavier
+     */
+    public List<Button> getClavier() {
         return this.clavier;
     }
 

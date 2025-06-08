@@ -85,11 +85,17 @@ public class Pendu extends Application {
      * le bouton qui permet de (lancer ou relancer une partie
      */ 
     private Button bJouer;
-
+    /*
+     * le bouton qui donne un nouveau pour une partie en cours ou une nouvelle partie
+     */
     private Button boutonNouvMot;
-
+    /*
+     * Le titre affiché sur la banniere
+     */
     private Text titre;
-
+    /*
+     * le ToggleGroup qui rassemble les radio buttons du menu de niveau
+     */
     private ToggleGroup lesRadiosBtn;
 
     /**
@@ -183,8 +189,7 @@ public class Pendu extends Application {
     // /**
      // * @return la fenêtre d'accueil sur laquelle on peut choisir les paramètres de jeu
      // */
-    private BorderPane fenetreAccueil(){
-        // A implementer    
+    private BorderPane fenetreAccueil(){   
         BorderPane res = new BorderPane();
         
         VBox pageCentre = new VBox(15);
@@ -348,12 +353,18 @@ public class Pendu extends Application {
         return null; // A enlever
     }
 
+    /*
+     * fenetre d'alerte si la partie est en cours
+     */
     public Alert popUpPartieEnCours(){
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"La partie est en cours!\n On l'arrête tout de même ?", ButtonType.YES, ButtonType.NO);
         alert.setTitle("Attention");
         return alert;
      }
         
+     /*
+      * fenetre d'alerte regles du jeu
+      */
     public Alert popUpReglesDuJeu(){
          Alert alert = new Alert(Alert.AlertType.INFORMATION);
          alert.setTitle("Alerte de type information");
@@ -363,8 +374,10 @@ public class Pendu extends Application {
          return alert;
      }
     
+     /*
+      * fenetre d'alerte partie gagnee
+      */
      public Alert popUpMessageGagne(){
-    //     // A implementer
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Alerte de type information");
         alert.setHeaderText("Victoire");
@@ -373,8 +386,10 @@ public class Pendu extends Application {
         return alert;
      }
     
-     public Alert popUpMessagePerdu(){
-    //     // A implementer    
+     /*
+      * fenetre d'alerte partie perdue
+      */
+     public Alert popUpMessagePerdu(){ 
          Alert alert = new Alert(Alert.AlertType.INFORMATION);
          alert.setTitle("Alerte de type information");
          alert.setHeaderText("Perdu...");
