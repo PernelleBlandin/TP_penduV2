@@ -39,22 +39,29 @@ public class Clavier extends TilePane{
             Button boutonLettre = new Button(Character.toString(lesLettres.charAt(i)));
             boutonLettre.setOnAction(actionTouches);
             this.clavier.add(boutonLettre);
+            boutonLettre.setShape(new Circle(3));
             this.getChildren().add(boutonLettre);      
             
         }
+    }
+
+        public List<Button> getClavier() {
+        return this.clavier;
     }
 
     /**
      * permet de désactiver certaines touches du clavier (et active les autres)
      * @param touchesDesactivees une chaine de caractères contenant la liste des touches désactivées
      */
-    public void desactiveTouches(Set<String> touchesDesactivees){
+   public void desactiveTouches(Set<String> touchesDesactivees){
         for(String toucheADeact : touchesDesactivees) {
             for(Button boutonLettre : this.clavier) {
                 if(touchesDesactivees.contains(boutonLettre.getText())) {
-                    boutonLettre.setDisable(isCache());
-            }
-            
+                    boutonLettre.setDisable(true);
+                }
+                else {
+                    boutonLettre.setDisable(false);
+                }
             }
         }
         

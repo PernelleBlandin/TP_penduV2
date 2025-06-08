@@ -91,6 +91,7 @@ public class Pendu extends Application {
     private Text titre;
 
     private ToggleGroup lesRadiosBtn;
+
     /**
      * initialise les attributs (créer le modèle, charge les images, crée le chrono ...)
      */
@@ -101,7 +102,6 @@ public class Pendu extends Application {
         this.chargerImages("./img");
 
         this.niveaux = new ArrayList<>();
-        this.dessin = new ImageView("../img/pendu0.png");
         this.motCrypte = new Text();
         this.pg = new ProgressBar();
         this.clavier = new Clavier("ABCDEFGHIJKLMNOPQRSTUVWXYZ-", new ControleurLettres(this.modelePendu, this), 8);
@@ -238,7 +238,7 @@ public class Pendu extends Application {
      // *         de progression et le clavier
      // */
     private BorderPane fenetreJeu(){
-        // A implementer
+
         BorderPane res = new BorderPane();
         this.boutonHome.setDisable(false);
         this.boutonParametres.setDisable(true);
@@ -247,18 +247,16 @@ public class Pendu extends Application {
         this.boutonHome.setOnAction(versAccueil);
 
         VBox jeuPrincp = new VBox();
-        //jeuPrincp.setPadding(new Insets(30,50,0,50));
+        jeuPrincp.setPadding(new Insets(30,50,0,50));
         
         this.motCrypte = new Text(modelePendu.getMotCrypte());
+        this.motCrypte.setFont(Font.font("Arial", FontWeight.BOLD, 28));
+        this.dessin = new ImageView("../img/pendu0.png");
+
         jeuPrincp.getChildren().addAll(this.motCrypte, this.dessin, this.pg, this.clavier);
-        //jeuPrincp.setSpacing(10);
+        jeuPrincp.setSpacing(10);
         jeuPrincp.setAlignment(Pos.CENTER);
         this.clavier.setPrefColumns(8);
-
-        //A enlever apres les essais
-        BackgroundFill backgroundFill = new BackgroundFill(Color.LIGHTGREEN, null, null);
-        Background background = new Background(backgroundFill);
-        jeuPrincp.setBackground(background);
 
 
         VBox aside = new VBox(20);
@@ -316,8 +314,11 @@ public class Pendu extends Application {
     /** lance une partie */
     public void lancePartie(){
         this.modeJeu();
-        this.majAffichage();
         this.modelePendu.relancerPartie();
+        for(Button boutonLettre : this.clavier.getClavier()) {
+            boutonLettre.setDisable(false);
+        }
+        this.majAffichage();
     }
 
 
@@ -350,7 +351,6 @@ public class Pendu extends Application {
     public Alert popUpPartieEnCours(){
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"La partie est en cours!\n On l'arrête tout de même ?", ButtonType.YES, ButtonType.NO);
         alert.setTitle("Attention");
-        alert.showAndWait();
         return alert;
      }
         
