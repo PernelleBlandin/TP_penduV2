@@ -318,6 +318,7 @@ public class Pendu extends Application {
 
     /** lance une partie */
     public void lancePartie(){
+        
         this.modeJeu();
         this.modelePendu.relancerPartie();
         for(Button boutonLettre : this.clavier.getClavier()) {

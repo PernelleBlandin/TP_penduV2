@@ -245,9 +245,12 @@ public class MotMystere {
         return nbNouvelles;
     }
 
-        public void relancerPartie(){
-            String nouveauMot = this.dict.choisirMot();
-            this.initMotMystere(nouveauMot, this.niveau, this.nbEerreursMax);
+    /*
+     * Permet de relancer une partie en gardant le meme niveau, juste en changeant de mot
+     */
+     public void relancerPartie(){
+        String nouveauMot = this.dict.choisirMot();
+        this.initMotMystere(nouveauMot, this.niveau, this.nbEerreursMax);
 }
 
     /**
